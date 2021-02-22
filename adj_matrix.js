@@ -50,13 +50,32 @@ class Graph {
             this.matrix[this.size - 1][i] = 0;
         }
     }
+
+    removeVertex(vertex) {  
+        if (vertex < 0 || vertex > this.size - 1) { 
+            console.log('Invalid vertex');
+        } else { 
+            while ( vertex < this.size - 1) {  
+                for (let i = 0; i < this.size; i++) { 
+                    this.matrix[i][vertex] = graph[i][vertex + 1]; 
+                } 
+                for (let i = 0; i < this.size; i++) { 
+                    this.matrix[vertex][i] = this.matrix[vertex + 1][i]; 
+                } 
+                vertex++; 
+            } 
+            this.matrix.pop();
+            this.size--;
+        } 
+    } 
 }
 
-let graph = new Graph(3);
+let graph = new Graph(4);
 graph.addEdge(0, 1, 2);
 graph.addEdge(0, 2, 3);
-graph.addVertex();
 graph.addEdge(1, 3, 2);
 graph.addEdge(2, 3, 4);
 graph.removeEdge(2, 3);
 graph.addEdge(2, 3, 6);
+graph.addVertex();
+graph.removeVertex(4);
